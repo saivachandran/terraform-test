@@ -1,0 +1,21 @@
+provider "aws" {
+
+  region     = "ap-south-1"
+
+}
+
+resource "aws_instance" "demo" {
+
+  ami            = "ami-09e67e426f25ce0d7"
+  instance_type  = "t2.micro"
+  key_name       = "SAIRSA"
+  
+}
+
+
+2. touch versions.tf and past following content
+
+terraform {
+
+  required_version = ">= 0.12"
+}

@@ -1,0 +1,6 @@
+docker-demo-1/*.terraform
+docker-demo-2/*.terraform
+ec2_with_vpc/*.terraform
+ec2_with_vpc/*.terraform
+import/*.terraform
+vpc/*.terraform
