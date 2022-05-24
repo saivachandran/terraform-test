@@ -21,8 +21,8 @@ resource "aws_autoscaling_group" "ecs-example-autoscaling" {
   name                 = "ecs-example-autoscaling"
   vpc_zone_identifier  = [aws_subnet.main-public-1.id, aws_subnet.main-public-2.id]
   launch_configuration = aws_launch_configuration.ecs-example-launchconfig.name
-  desired_capacity   = 1
-  min_size             = 1
+  desired_capacity   = 2
+  min_size             = 2
   max_size             = 2
   tag {
     key                 = "Name"
