@@ -57,7 +57,10 @@ resource "aws_ecs_service" "myapp-service" {
     container_port = 3000 
   }
   lifecycle {
-    ignore_changes = [task_definition]
+    ignore_changes = [
+      capacity_provider_strategy
+    ]
   }
+
 }
 
