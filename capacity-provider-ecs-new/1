@@ -1,0 +1,5 @@
+ lifecycle {
+    ignore_changes = [
+      capacity_provider_strategy
+    ]
+  }
