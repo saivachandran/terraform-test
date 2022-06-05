@@ -49,8 +49,8 @@ resource "aws_launch_configuration" "ecs-example-launchconfig1" {
 
 
 
-resource "aws_autoscaling_group" "example-cluster-2" {
-  name                 = "example-cluster-2"
+resource "aws_autoscaling_group" "example-cluster1" {
+  name                 = "example-cluster1"
   vpc_zone_identifier  = [aws_subnet.main-public-1.id, aws_subnet.main-public-2.id]
   launch_configuration = aws_launch_configuration.ecs-example-launchconfig1.name
   desired_capacity   = 0
@@ -67,17 +67,12 @@ resource "aws_autoscaling_group" "example-cluster-2" {
 resource "aws_ecs_cluster_capacity_providers" "example-cluster" {
   cluster_name = aws_ecs_cluster.example-cluster.name
 
-  capacity_providers = [aws_ecs_capacity_provider.example-cluster.name,aws_ecs_capacity_provider.example-cluster1.name]
+  capacity_providers = [aws_ecs_capacity_provider.example-cluster.name]
 
   default_capacity_provider_strategy {
     base              =  4
     weight            =  2 
     capacity_provider = aws_ecs_capacity_provider.example-cluster.name
-  }
-  default_capacity_provider_strategy {
-    base              =  0
-    weight            =  2
-    capacity_provider = aws_ecs_capacity_provider.example-cluster1.name
   }
 
 }
@@ -98,11 +93,28 @@ resource "aws_ecs_capacity_provider" "example-cluster" {
   }
 }
 
+
+
+resource "aws_ecs_cluster_capacity_providers" "example-cluster1" {
+  cluster_name = aws_ecs_cluster.example-cluster.name
+
+  capacity_providers = [aws_ecs_capacity_provider.example-cluster1.name]
+
+  default_capacity_provider_strategy {
+    base              =  0
+    weight            =  2
+    capacity_provider = aws_ecs_capacity_provider.example-cluster1.name
+  }
+
+}
+
+
+
 resource "aws_ecs_capacity_provider" "example-cluster1" {
   name = "example-cluster1"
 
   auto_scaling_group_provider {
-    auto_scaling_group_arn = aws_autoscaling_group.example-cluster-2.arn
+    auto_scaling_group_arn = aws_autoscaling_group.example-cluster1.arn
 
     managed_scaling {
       maximum_scaling_step_size = 10
