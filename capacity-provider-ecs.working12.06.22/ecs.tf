@@ -118,3 +118,4 @@ resource "aws_ecs_capacity_provider" "example-cluster-2" {
     }
   }
 }
+
